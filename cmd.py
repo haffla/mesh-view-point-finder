@@ -1,33 +1,28 @@
+#!/usr/bin/env python3
+
 import sys
 import json
+import argparse
 from view_spot_finder import ViewSpotFinder
 
 def main():
-    argv = sys.argv
-
-    if len(argv) < 3:
-        return err_out("Wrong number of arguments.\nUsage: python %s [filepath] [number of view points]" % argv[0])
-
-    file = argv[1]
-    n_maxima = argv[2]
+    parser = argparse.ArgumentParser(description="Find the highest view spots in a given mesh.")
+    parser.add_argument("file_path", help="The path to the JSON file containing the mesh")
+    parser.add_argument("nr_view_spots", help="Number of view spots", type=int)
+    args = parser.parse_args()
 
     try:
-        n_maxima = int(n_maxima)
-    except ValueError:
-        return err_out("Second argument is not a number")
-
-    try:
-        with open(file) as f:
+        with open(args.file_path) as f:
             data = json.load(f)
-            finder = ViewSpotFinder(data, n_maxima)
+            finder = ViewSpotFinder(data, args.nr_view_spots)
             print(json.dumps(finder.get_local_maxima()))
     except FileNotFoundError:
-        err_out("File %s does not exist." % file)
+        err_out("File %s does not exist." % args.file_path)
     except json.decoder.JSONDecodeError:
-        err_out("Invalid JSON in file %s." % file)
+        err_out("Invalid JSON in file %s." % args.file_path)
 
 def err_out(message):
-    print("Error: %s" % message, file=sys.stderr)
+    print("error: %s" % message, file=sys.stderr)
 
 if __name__ == "__main__":
     main()
