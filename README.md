@@ -4,6 +4,4 @@
 
 ### Usage
 
-`python cmd.py [path to json file] [number of view points]`
-
-Or just `./cmd.py` instead of `python cmd.py`.
+Just run `python cmd.py --help` and the usage will be printed.
