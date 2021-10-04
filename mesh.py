@@ -21,7 +21,7 @@ def get_view_spots(data, nr_view_spots):
     return __format_view_spots(view_spots, heights)
 
 def __get_sorted_elements(data, heights):
-    "Sorts elements by heights descending"
+    "Sorts elements by height descending"
 
     return sorted(data["elements"], reverse=True, key=lambda e: heights[e["id"]])
 
