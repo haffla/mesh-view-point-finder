@@ -62,7 +62,6 @@ def __get_neighbours_for(element, nodes_elements_mapping):
     return neighbours
 
 def __are_neighbours_with_same_height(element, other_element, heights):
-
     "Returns true if both elements have the same height and are neighbours"
     if heights[element["id"]] != heights[other_element["id"]]:
         return False
