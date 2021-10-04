@@ -3,7 +3,7 @@
 import sys
 import json
 import argparse
-from view_spot_finder import ViewSpotFinder
+from mesh import get_view_spots
 
 def main():
     parser = argparse.ArgumentParser(description="Find the highest view spots in a given mesh.")
@@ -14,8 +14,8 @@ def main():
     try:
         with open(args.file_path) as f:
             data = json.load(f)
-            finder = ViewSpotFinder(data, args.nr_view_spots)
-            print(json.dumps(finder.get_local_maxima()))
+            view_spots = get_view_spots(data, args.nr_view_spots)
+            print(json.dumps(view_spots))
     except FileNotFoundError:
         err_out("File %s does not exist." % args.file_path)
     except json.decoder.JSONDecodeError:
